@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>客户信息提交系统</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    tbody a {
+      display: inline-block;
+      width: 80px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      color: #fff;
+      background-color: #f26934;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin: 20px 0;
+
+    }
+
+    .title {
+      width: 1000px;
+      height: 30px;
+      line-height: 30px;
+      padding-right: 15px;
+      border: 1px solid #ebebeb;
+      margin: 10px auto;
+      background-color: #f2f2f2;
+      text-align: right;
+    }
+
+    .title span {
+      display: inline-block;
+      vertical-align: middle;
+      height: 20px;
+      margin: -3px 5px 0;
+      text-align: center;
+      line-height: 20px;
+      color: #f26934;
+      font-weight: 700;
+    }
+
+    table {
+      margin: 0 auto;
+      width: auto;
+      border-collapse: collapse;
+      color: #004085;
+    }
+
+    th {
+      padding: 10px;
+      background: #cfe5ff;
+
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    td,
+    th {
+      border: 1px solid #b8daff;
+    }
+
+    td {
+      padding: 10px;
+      color: #666;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    tbody tr {
+      background: #fff;
+    }
+
+    tbody tr:hover {
+      background: #e1ecf8;
+    }
+
+    .info {
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    .info input,
+    .info select {
+      width: 80px;
+      height: 27px;
+      outline: none;
+      border-radius: 5px;
+      border: 1px solid #b8daff;
+      padding-left: 5px;
+      box-sizing: border-box;
+      margin-right: 15px;
+    }
+
+    .info button {
+      width: 60px;
+      height: 27px;
+      background-color: #004085;
+      outline: none;
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .info .idCard {
+      width: 150px;
+    }
+
+    #dateInput {
+      /* 在这里写入CSS样式 */
+      width: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>客户信息提交</h1>
+  <form class="info" autocomplete="off">
+    姓名：<input type="text" class="uname" name="uname" />
+    性别:
+    <select name="gender" class="gender">
+      <option value="男">男</option>
+      <option value="女">女</option>
+    </select>
+    国籍：
+    <select name="nationality" class="nationality">
+      <option value="中国">中国</option>
+      <option value="美国">美国</option>
+      <option value="英国">英国</option>
+      <option value="德国">德国</option>
+      <option value="法国">法国</option>
+    </select>
+    身份证件种类：
+    <select name="idKind" class="idKind">
+      <option value="居民身份证">居民身份证</option>
+      <option value="护照">护照</option>
+    </select>
+    身份证件号码：<input type="text" class="idCard" name="idCard" />
+    <br><br>
+    <!-- 使用JS自带的date类型，使得更好的获取日期的格式 -->
+    身份证件到期日：<input type="date" id="dateInput" name="date">
+    <!-- 身份证件到期日：<input type="text" class="idDueDate" name="idDueDate" /> -->
+    证件地址：<select name="idAddress" class="idAddress">
+      <option value="北京">北京</option>
+      <option value="上海">上海</option>
+      <option value="广东">广东</option>
+      <option value="安徽">安徽</option>
+      <option value="浙江">浙江</option>
+    </select>
+    居住地址：<select name="address" class="address">
+      <option value="北京">北京</option>
+      <option value="上海">上海</option>
+      <option value="广州">广州</option>
+      <option value="深圳">深圳</option>
+      <option value="杭州">杭州</option>
+      <option value="合肥">合肥</option>
+      <option value="芜湖">芜湖</option>
+      <option value="铜陵">铜陵</option>
+    </select>
+    <button class="add">
+      <i class="iconfont icon-tianjia"></i>提交
+    </button>
+  </form>
+
+  <div class="title">共有数据<span>0</span>条</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>国籍</th>
+        <th>身份证件种类</th>
+        <th>身份证件号码</th>
+        <th>身份证件到期日</th>
+        <th>证件地址</th>
+        <th>居住地址</th>
+        <th>录入时间</th>
+        <th>是否到期</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tr>
+        <td>李明</td>
+        <td>男</td>
+        <td>中国</td>
+        <td>居民身份证</td>
+        <td>110000200101012356</td>
+        <td>2024-5-12</td>
+        <td>上海</td>
+        <td>2099/9/9 08:08:08</td>
+        <td>上海</td>
+        <td>
+          <a href="javascript:">删除</a>
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+  <script>
+    //参考数据
+    // const initData = [
+    //   {
+    //     uname: '李明',
+    //     gender: '男',
+    //     nationality : '中国',
+    //     idKind : '居民身份证',
+    //     idCard : '110000200101012356',
+    //     date: '2024-5-12',
+    //     idAddress: '上海',
+    //     address: '上海',
+    //     time: '2000/0/0 00:00:00'
+    //   }
+    // ]
+    // 将数据存储到本地
+    //localStorage.setItem('data', JSON.stringify(initData))
+    // 取出本地数据,转换为对象 如果没有数据就用空数组代替
+    const arr = JSON.parse(localStorage.getItem('data')) || []
+    // 获取tbody
+    const tbody = document.querySelector('tbody')
+    // 利用map和join方法来渲染页面
+    function render() {
+      // 利用map遍历数组，返回对应tr的数组
+      const trArr = arr.map(function (ele, index) {
+        // 根据是否到期决定样式
+        const expiredStyle = ele.expired === '是' ? 'style="color: red;"' : '';
+        return `
+        <tr>
+          <td>${ele.uname}</td>
+          <td>${ele.gender}</td>
+          <td>${ele.nationality}</td>
+          <td>${ele.idKind}</td>
+          <td>${ele.idCard}</td>
+          <td>${ele.date}</td>
+          <td>${ele.idAddress}</td>
+          <td>${ele.address}</td>    
+          <td>${ele.time}</td>
+          <td ${expiredStyle}>${ele.expired}</td> <!-- 应用样式 -->
+          <td>
+            <a href="javascript:" data-id="${index}">
+              <i class="iconfont icon-shanchu"></i>
+              删除
+            </a>
+          </td>
+        </tr>
+        `
+      })
+      // 把数组转换成字符串，将生成的字符串追加给tbody
+      tbody.innerHTML = trArr.join('')
+      // 显示共计有几条数据
+      document.querySelector('.title span').innerHTML = arr.length
+    }
+    render()
+    // 获取form表单
+    const info = document.querySelector('.info')
+    const uname = document.querySelector('.uname')
+    const gender = document.querySelector('.gender')
+    const nationality = document.querySelector('.nationality')
+    const idKind = document.querySelector('.idKind')
+    const idCard = document.querySelector('.idCard')
+    const dateInput = document.querySelector('#dateInput');
+    // const idDueDate = document.querySelector('.idDueDate')
+    const idAddress = document.querySelector('.idAddress')
+    const address = document.querySelector('.address')
+
+    //提交
+    info.addEventListener('submit', function (e) {
+      // 阻止默认行为
+      e.preventDefault()
+      // 判断是否为空
+      if (!uname.value || !idCard.value || !dateInput.value) {
+        return alert('输入内容不能为空')
+      }
+      // 在表单提交处理函数中添加
+      const expiryDate = new Date(dateInput.value);
+      const isExpired = expiryDate < new Date();  // 比较日期
+      // 给arr数组追加对象，里面存储表单获取过来的数据
+      arr.push({
+        uname: uname.value,
+        gender: gender.value,
+        nationality: nationality.value,
+        idKind: idKind.value,
+        idCard: idCard.value,
+        date: dateInput.value,
+        idAddress: idAddress.value,
+        address: address.value,
+        time: new Date().toLocaleString(),
+        expired: isExpired ? '是' : '否'  // 新增是否到期
+      })
+      // 渲染页面和重置表单
+      render()
+      // 重置表单
+      this.reset()
+      //把数组重新存入本地存储里面
+      localStorage.setItem('data', JSON.stringify(arr))
+    })
+
+    //删除
+    //采用事件委托形式，给tbody注册点击事件
+    tbody.addEventListener('click', function (e) {
+      // 判断点击的是否是删除按钮
+      if (e.target.tagName === 'A') {
+        // 得到当前点击的索引号
+        console.log(e.target.dataset.id)
+        //判断是否删除
+        if (confirm('您确定要删除这条数据吗？')) {
+          // 根据索引号，利用splice 删除数组这条数据
+          arr.splice(e.target.dataset.id, 1)
+          //重新渲染页面
+          render()
+          // 把最新arr数组存入本地存储
+          localStorage.setItem('data', JSON.stringify(arr))
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>
